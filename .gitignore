@@ -1,0 +1,6 @@
+log/*
+!log/.htaccess
+temp/*
+!temp/.htaccess
+vendor/
+.idea/
