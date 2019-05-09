@@ -1,0 +1,18 @@
+<script>
+    $(document).ready(function() {
+        $("#translationText").on("keyup", function() {
+            $.ajax({
+                url: {link translate!},
+                method: "POST",
+                data: {
+                    translationText: $(this).val()
+                },
+                success: function(result) {
+                    if(result.status === "ok") {
+                        $("#translatedText").val(result.text);
+                    }
+                }
+            });
+        });
+    });
+</script>

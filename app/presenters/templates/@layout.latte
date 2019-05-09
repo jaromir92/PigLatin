@@ -3,17 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Pig Latin Translator</title>
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
+	<h1>Pig Latin Translator</h1>
 	{include content}
-
 	{block scripts}
-	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 	{/block}
 </body>
 </html>
