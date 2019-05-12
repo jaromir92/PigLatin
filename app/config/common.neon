@@ -12,3 +12,4 @@ services:
 	router: App\Router\RouterFactory::createRouter
 	- App\Components\Forms\ITranslatorFormFactory
 	- App\Model\Usecases\TranslateText
+	- App\Model\Translator\PigLatinTranslator

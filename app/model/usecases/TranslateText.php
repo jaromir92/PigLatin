@@ -2,17 +2,20 @@
 
 namespace App\Model\Usecases;
 
+use App\Model\Translator\PigLatinTranslator;
+
 class TranslateText {
 
-    public function __construct() {
+    private $pigLatinTranslator;
 
+    public function __construct(PigLatinTranslator $pigLatinTranslator) {
+        $this->pigLatinTranslator = $pigLatinTranslator;
     }
 
     public function doIt(string $translationText): string {
         $lines = preg_split('/\r\n|[\r\n]/', $translationText);
         $translatedLines = [];
         foreach($lines as $line) {
-
             $translatedLines[] = $this->translateLine($line);
         }
         $translatedText = implode("\r\n", $translatedLines);
@@ -23,7 +26,7 @@ class TranslateText {
         $words = explode(" ", $line);
         $translatedLine = [];
         foreach($words as $word) {
-            $translatedLine[] = $word; // translate
+            $translatedLine[] = $this->pigLatinTranslator->translate($word);
         }
         return implode(" ", $translatedLine);
     }
