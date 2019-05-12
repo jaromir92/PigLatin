@@ -2,30 +2,19 @@
 
 namespace App\Model\Translator;
 
-use Nette\Utils\Strings;
+class VowelWordRule extends OnlySuffixWordRule implements ITranslationRule {
 
-class VowelWordRule implements ITranslationRule {
-
-    const SUFFIX = "yay";
     const VOWELS = ["a", "e", "i", "o", "u"];
-    const DELIMITER = "-";
-
-    private $word;
 
     public function __construct(string $word) {
-        $this->word = $word;
+        parent::__construct($word, self::VOWELS);
     }
 
     public function isMatched(): bool {
-        foreach(self::VOWELS as $vowel) {
-            if(Strings::startsWith(Strings::lower($this->word), $vowel)) {
-                return true;
-            }
-        }
-        return false;
+        return parent::isMatched();
     }
 
     public function compileTranslation(): string {
-        return $this->word . self::DELIMITER . self::SUFFIX;
+        return parent::compileTranslation();
     }
 }

@@ -15,10 +15,10 @@ class ConsonantWordRule implements ITranslationRule {
 
     public function __construct(string $word) {
         $this->word = $word;
+        $this->findConsonantCluster();
     }
 
     public function isMatched(): bool {
-        $this->findConsonantCluster();
         return (Strings::length($this->cluster) > 0);
     }
 
