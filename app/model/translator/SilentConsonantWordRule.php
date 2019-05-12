@@ -4,10 +4,10 @@ namespace App\Model\Translator;
 
 use Nette\Utils\Strings;
 
-class VowelWordRule implements ITranslationRule {
+class SilentConsonantWordRule implements ITranslationRule {
 
     const SUFFIX = "yay";
-    const VOWELS = ["a", "e", "i", "o", "u"];
+    const SILENT_CONSONANTS = ["bt", "ck", "cq", "dn", "dg", "gn", "kn", "la", "lo", "lu", "ps", "pt", "pn", "sl", "wr"];
     const DELIMITER = "-";
 
     private $word;
@@ -17,8 +17,8 @@ class VowelWordRule implements ITranslationRule {
     }
 
     public function isMatched(): bool {
-        foreach(self::VOWELS as $vowel) {
-            if(Strings::startsWith(Strings::lower($this->word), $vowel)) {
+        foreach(self::SILENT_CONSONANTS as $silentConsonant) {
+            if(Strings::startsWith(Strings::lower($this->word), $silentConsonant)) {
                 return true;
             }
         }

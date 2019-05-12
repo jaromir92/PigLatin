@@ -9,7 +9,7 @@ class PigLatinTranslator {
     public function __construct() {
         $this->rules[EmptyWordRule::class] = true;
         $this->rules[VowelWordRule::class] = true;
-        // TODO: SilentConsonantWordRule
+        $this->rules[SilentConsonantWordRule::class] = true;
         $this->rules[ConsonantWordRule::class] = true;
         $this->rules[UnrecognizedWordRule::class] = true;
     }
