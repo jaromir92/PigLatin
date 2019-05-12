@@ -2,32 +2,27 @@
 
 namespace App\Model\Usecases;
 
+use App\Helpers\TextareaParser;
 use App\Model\Translator\PigLatinTranslator;
 
 class TranslateText {
 
+    private $textareaParser;
     private $pigLatinTranslator;
 
-    public function __construct(PigLatinTranslator $pigLatinTranslator) {
+    public function __construct(TextareaParser $textareaParser, PigLatinTranslator $pigLatinTranslator) {
+        $this->textareaParser = $textareaParser;
         $this->pigLatinTranslator = $pigLatinTranslator;
     }
 
     public function doIt(string $translationText): string {
-        $lines = preg_split('/\r\n|[\r\n]/', $translationText);
-        $translatedLines = [];
-        foreach($lines as $line) {
-            $translatedLines[] = $this->translateLine($line);
+        $lines = $this->textareaParser->toMultiArray($translationText);
+        foreach($lines as $lineNumber => $line) {
+            foreach($line as $i => $word) {
+                $lines[$lineNumber][$i] = $this->pigLatinTranslator->translate($word);
+            }
         }
-        $translatedText = implode("\r\n", $translatedLines);
+        $translatedText = $this->textareaParser->toText($lines);
         return $translatedText;
-    }
-
-    private function translateLine(string $line): string {
-        $words = explode(" ", $line);
-        $translatedLine = [];
-        foreach($words as $word) {
-            $translatedLine[] = $this->pigLatinTranslator->translate($word);
-        }
-        return implode(" ", $translatedLine);
     }
 }
