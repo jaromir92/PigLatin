@@ -7,19 +7,30 @@ class PigLatinTranslator {
     private $rules = [];
 
     public function __construct() {
-        $this->rules[] = new EmptyWordRule();
-        $this->rules[] = new VowelWordRule();
+        $this->rules[EmptyWordRule::class] = true;
+        $this->rules[VowelWordRule::class] = true;
         // TODO: SilentConsonantWordRule
-        $this->rules[] = new ConsonantWordRule();
-        $this->rules[] = new UnrecognizedWordRule();
+        $this->rules[ConsonantWordRule::class] = true;
+        $this->rules[UnrecognizedWordRule::class] = true;
     }
 
     public function translate(string $translationText): string {
-        foreach($this->rules as $rule) {
-            $rule->setWord($translationText);
+        $enabledRules = $this->getEnabledRules();
+        foreach($enabledRules as $ruleClassName) {
+            $rule = new $ruleClassName($translationText);
             if($rule->isMatched()) {
                 return $rule->compileTranslation();
             }
         }
+    }
+
+    private function getEnabledRules(): array {
+        $enabledRules = [];
+        foreach($this->rules as $ruleClassName => $enabled) {
+            if($enabled) {
+                $enabledRules[] = $ruleClassName;
+            }
+        }
+        return $enabledRules;
     }
 }

@@ -5,7 +5,7 @@ namespace App\Model\Translator;
 
 interface ITranslationRule {
 
-    public function setWord(string $word): void;
+    public function __construct(string $word);
     public function isMatched(): bool;
     public function compileTranslation(): string;
 }

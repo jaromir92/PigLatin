@@ -6,7 +6,7 @@ class UnrecognizedWordRule implements ITranslationRule {
 
     private $word;
 
-    public function setWord(string $word): void {
+    public function __construct(string $word) {
         $this->word = $word;
     }
 

@@ -6,13 +6,12 @@ use Nette\Utils\Strings;
 
 class VowelWordRule implements ITranslationRule {
 
-    const PRE_SUFFIX = "y";
-    const SUFFIX = "ay";
+    const SUFFIX = "yay";
     const VOWELS = ["a", "e", "i", "o", "u"];
 
     private $word;
 
-    public function setWord(string $word): void {
+    public function __construct(string $word) {
         $this->word = $word;
     }
 
@@ -26,6 +25,6 @@ class VowelWordRule implements ITranslationRule {
     }
 
     public function compileTranslation(): string {
-        return $this->word . "-" . self::PRE_SUFFIX . self::SUFFIX;
+        return $this->word . "-" . self::SUFFIX;
     }
 }

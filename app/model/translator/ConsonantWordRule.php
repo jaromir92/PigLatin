@@ -12,7 +12,7 @@ class ConsonantWordRule implements ITranslationRule {
     private $word;
     private $cluster;
 
-    public function setWord(string $word): void {
+    public function __construct(string $word) {
         $this->word = $word;
     }
 
@@ -29,9 +29,9 @@ class ConsonantWordRule implements ITranslationRule {
     private function findConsonantCluster(): void {
         $this->cluster = "";
         $i = 0;
-        $array = str_split($this->word);
-        while(key_exists($i, $array) && in_array(Strings::lower($array[$i]), self::CONSONANTS)) {
-            $this->cluster .= $array[$i];
+        $wordChars = str_split($this->word);
+        while(key_exists($i, $wordChars) && in_array(Strings::lower($wordChars[$i]), self::CONSONANTS)) {
+            $this->cluster .= $wordChars[$i];
             $i++;
         }
     }
