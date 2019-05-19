@@ -4,3 +4,4 @@ temp/*
 !temp/.htaccess
 vendor/
 .idea/
+nbproject/
